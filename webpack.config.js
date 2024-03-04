@@ -14,12 +14,14 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist/js'),
+    publicPath: '/js/',
     filename: 'main.js',
   },
   devServer: {
     static: {
-      directory: "./dist",
+      directory: path.resolve(__dirname, "dist/"),
     },
+    open: true,
   },
   module: {
     rules: [

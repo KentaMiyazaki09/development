@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=\"development\" webpack serve --open",
-    "build": "NODE_ENV=\"production\" webpack build"
+    "dev": "gulp & NODE_ENV=\"development\" webpack serve",
+    "build": "gulp & NODE_ENV=\"production\" webpack build"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,11 @@
     "@babel/core": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
     "babel-loader": "^9.1.3",
+    "gulp": "^4.0.2",
+    "gulp-ejs": "^5.1.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-replace": "^1.1.4",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.2"
