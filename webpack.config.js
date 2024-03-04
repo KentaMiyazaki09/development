@@ -1,12 +1,21 @@
-// development モードか否か？
-const isDev = process.env.NODE_ENV === "development";
-
 /** ↓ エディタで補完を効かせるための JSDoc */
 /** @type {import('webpack').Configuration} */
+
+const path = require('path')
+
+// development モードか否か？
+const isDev = process.env.NODE_ENV === "development"
 
 const config = {
   mode: isDev ? "development" : "production",
   devtool: isDev ? "source-map" : undefined,
+  entry: {
+    main: './src/js/main.js',
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist/js'),
+    filename: 'main.js',
+  },
   devServer: {
     static: {
       directory: "./dist",
