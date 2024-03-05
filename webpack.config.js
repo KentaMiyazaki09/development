@@ -1,7 +1,7 @@
 /** ↓ エディタで補完を効かせるための JSDoc */
 /** @type {import('webpack').Configuration} */
 
-const path = require('path')
+const { resolve } = require('path')
 
 // development モードか否か？
 const isDev = process.env.NODE_ENV === "development"
@@ -13,13 +13,15 @@ const config = {
     main: './src/js/main.js',
   },
   output: {
-    path: path.resolve(__dirname, 'dist/js'),
+    path: resolve(__dirname, 'dist/js'),
+    publicPath: '/js/',
     filename: 'main.js',
   },
   devServer: {
     static: {
-      directory: "./dist",
+      directory: resolve(__dirname, "dist/"),
     },
+    open: true,
   },
   module: {
     rules: [
