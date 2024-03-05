@@ -1,39 +1,49 @@
-const gulp = require('gulp')
+const { src, dest, watch } = require('gulp')
 const ejs = require('gulp-ejs')
-const sass = require('gulp-sass')(require('sass'));
+const { sync, logError } = require('gulp-sass')(require('sass'))
 const rename = require('gulp-rename')
 const replace = require('gulp-replace')
 const plumber = require('gulp-plumber')
 const { series } = require('gulp')
+const sourcemaps = require('gulp-sourcemaps')
 
 const EJSPath = ['./src/*.ejs', '!./src/_*.ejs']
 const SassPath = ['./src/**/*.scss', '!./src/**/_*.scss']
 
+const isPro = process.env.NODE_ENV === "production"
+
 // ejsコンパイル
 const EJSCompile = (done) => {
-  gulp.src(EJSPath)
+  src(EJSPath)
     .pipe(plumber())
     .pipe(ejs())
     .pipe(rename({ extname: '.html' }))
     .pipe(replace(replace(/[\s\S]*?(<!DOCTYPE)/, '$1')))
-    .pipe(gulp.dest('./dist/'))
+    .pipe(dest('./dist/'))
     done()
   }
 
 // sassコンパイル
 const SassCompile = (done) => {
-  gulp.src(SassPath)
-    .pipe(sass.sync({outputStyle: 'expanded'}))
-    .on('error', sass.logError)
-    .pipe(gulp.dest('./dist'))
+  if(isPro) {
+    src(SassPath)
+    .pipe(sync({outputStyle: 'compressed'}).on('error', logError))
+    .pipe(dest('./dist'))
+  } else {
+    src(SassPath)
+    .pipe(sourcemaps.init())
+    .pipe(sync({outputStyle: 'expanded'}).on('error', logError))
+    .pipe(sourcemaps.write())
+    .pipe(dest('./dist'))
+  }
   done()
 }
 
 // ファイル監視
 const watchFiles = (done) => {
-  gulp.watch(EJSPath, EJSCompile)
-  gulp.watch(SassPath, series(SassCompile))
-  gulp.watch(['./src/**/_*.scss'], series(SassCompile))
+  watch(EJSPath, EJSCompile)
+  watch(SassPath, series(SassCompile))
+  watch(['./src/**/_*.scss'], series(SassCompile))
   done()
 }
 
