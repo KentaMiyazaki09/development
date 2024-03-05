@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "gulp & NODE_ENV=\"development\" webpack serve",
-    "build": "gulp & NODE_ENV=\"production\" webpack build"
+    "build": "rimraf dist & gulp & NODE_ENV=\"production\" webpack build"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "gulp-rename": "^2.0.0",
     "gulp-replace": "^1.1.4",
     "gulp-sass": "^5.1.0",
+    "rimraf": "^5.0.5",
     "sass": "^1.71.1",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
