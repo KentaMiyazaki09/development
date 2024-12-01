@@ -1,4 +1,15 @@
-<%- include('./_modules/_header.ejs', { page: 'top'}) %>
-  <h1>development</h1>
-  <p>test</p>
+<%
+  const serverURL = '/static/docs/lepsim/pages/2024autumn'
+  const ENVType = process.env.NODE_ENV
+  rootURL = ENVType === 'production' ? serverURL : ''
+%>
+
+<% if(ENVType === 'development') {-%>
+<%- include('./_modules/_header.ejs') %>
+<%} -%>
+
+<%- include('./_modules/_contents.ejs') %>
+
+<% if(ENVType === 'development') {-%>
 <%- include('./_modules/_footer.ejs') %>
+<%} -%>

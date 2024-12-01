@@ -1,0 +1,29 @@
+@use '../_mixin' as m;
+@use '../variables' as v;
+
+.scroll-content {
+  @include m.pc {
+    width: 40%;
+    margin: auto;
+  }
+}
+
+.pc-content {
+  @include m.pc {
+    width: 30%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+  }
+  @include m.sp {
+    display: none;
+  }
+  &--left {
+    left: 0;
+    background-color: v.$red;
+  }
+  &--right {
+    right: 0;
+    background-color: v.$blue;
+  }
+}
